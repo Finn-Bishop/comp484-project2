@@ -1,0 +1,94 @@
+/* ---- Color palette ----------------------------------
+   Dark navy   #1e2835   text, headers, buttons
+   Slate       #404853   button border
+   Off-white   #fafafa   button text
+   Warm tan    #c89876   accent (hover, bubble border)
+   Cream       #f5f1ea   pet comment bubble background
+----------------------------------------------------- */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: helvetica, arial, sans-serif;
+  margin: 25px;
+  color: #1e2835;
+  background-color: #d3d3d3;
+}
+
+/* Let main grow with content and clear inner floats */
+main {
+  display: block;
+}
+main::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+header {
+  border-bottom: 1px solid #1e2835;
+}
+
+h1 {
+  font-weight: bold;
+  color: #1e2835;
+}
+
+.pet-image {
+  height: 250px;
+}
+
+.pet-image-container {
+  float: left;
+  padding: 10px;
+}
+
+.dashboard {
+  float: left;
+  padding: 20px;
+}
+
+.dashboard div {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.button-container {
+  margin-top: 20px;
+}
+
+.button-container button {
+  width: 100px;
+  margin-right: 10px;
+  text-align: center;
+  display: inline-block;
+  float: left;
+  font-size: 15px;
+  padding: 8px 0;
+  background-color: #800000;
+  border: 1px solid #5c0000;
+  border-radius: 8px;
+  color: #fafafa;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.button-container button:hover {
+  background-color: #a52a2a;
+  border-color: #5c0000;
+}
+
+/* Speech bubble where the pet "talks" — hidden until first click */
+.pet-comment {
+  clear: both;          /* drop below the floated buttons */
+  margin-top: 70px;
+  display: none;        /* jQuery .fadeIn() reveals it */
+  max-width: 320px;
+  padding: 10px 14px;
+  background-color: #f5f1ea;
+  border: 1px solid #c89876;
+  border-radius: 8px;
+  font-style: italic;
+}
