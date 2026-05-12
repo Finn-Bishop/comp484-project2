@@ -80,6 +80,11 @@ h1 {
   border-color: #5c0000;
 }
 
+.devtools-demo {
+  clear: both;
+  margin-top: 30px;
+}
+
 /* Speech bubble where the pet "talks" — hidden until first click */
 .pet-comment {
   clear: both;          /* drop below the floated buttons */

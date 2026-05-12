@@ -1,52 +1,85 @@
-$(function() { // Makes sure that your function is called once all the DOM elements of the page are ready to be used.
-    
-    // Called function to update the name, happiness, and weight of our pet in our HTML
-    checkAndUpdatePetInfoInHtml();
-  
-    // When each button is clicked, it will "call" function for that button (functions are below)
-    $('.treat-button').click(clickedTreatButton);
-    $('.play-button').click(clickedPlayButton);
-    $('.exercise-button').click(clickedExerciseButton);
-  
+$(function() { // Runs once the DOM is ready
+  checkAndUpdatePetInfoInHtml();
 
-  
-    
-  })
-  
-    // Add a variable "pet_info" equal to a object with the name (string), weight (number), and happiness (number) of your pet
-    var pet_info = {name:"My Pet Name", weight:"??", happiness:"??"};
-  
-    function clickedTreatButton() {
-      // Increase pet happiness
-      // Increase pet weight
-      checkAndUpdatePetInfoInHtml();
-    }
-    
-    function clickedPlayButton() {
-      // Increase pet happiness
-      // Decrease pet weight
-      checkAndUpdatePetInfoInHtml();
-    }
-    
-    function clickedExerciseButton() {
-      // Decrease pet happiness
-      // Decrease pet weight
-      checkAndUpdatePetInfoInHtml();
-    }
-  
-    function checkAndUpdatePetInfoInHtml() {
-      checkWeightAndHappinessBeforeUpdating();  
-      updatePetInfoInHtml();
-    }
-    
-    function checkWeightAndHappinessBeforeUpdating() {
-      // Add conditional so if weight is lower than zero.
-    }
-    
-    // Updates your HTML with the current values in your pet_info object
-    function updatePetInfoInHtml() {
-      $('.name').text(pet_info['name']);
-      $('.weight').text(pet_info['weight']);
-      $('.happiness').text(pet_info['happiness']);
-    }
-  
+  $('.treat-button').click(clickedTreatButton);
+  $('.play-button').click(clickedPlayButton);
+  $('.exercise-button').click(clickedExerciseButton);
+  $('.nap-button').click(clickedNapButton); // new button
+});
+
+var pet_info = { name: "Hound", weight: 30, happiness: 50, energy: 70 };
+
+function clickedTreatButton() {
+  pet_info.happiness += 5;
+  pet_info.weight    += 2;
+  showPetComment("Yum! Just give me the whole bag.");
+  bouncePet();
+  checkAndUpdatePetInfoInHtml();
+}
+
+function clickedPlayButton() {
+  pet_info.happiness += 4;
+  pet_info.weight    -= 1;
+  pet_info.energy    -= 5;
+  showPetComment("Woof! :D");
+  bouncePet();
+  checkAndUpdatePetInfoInHtml();
+}
+
+function clickedExerciseButton() {
+  pet_info.happiness -= 2;
+  pet_info.weight    -= 3;
+  pet_info.energy    -= 8;
+  showPetComment("I'm tired bruh");
+  bouncePet();
+  checkAndUpdatePetInfoInHtml();
+}
+
+function clickedNapButton() {
+  pet_info.energy    += 10;
+  pet_info.happiness += 1;
+  showPetComment("Zzzzzz.....");
+  bouncePet();
+  checkAndUpdatePetInfoInHtml();
+}
+
+function checkAndUpdatePetInfoInHtml() {
+  checkWeightAndHappinessBeforeUpdating();
+  updatePetInfoInHtml();
+}
+
+// Floor every stat at zero so nothing goes negative
+function checkWeightAndHappinessBeforeUpdating() {
+  if (pet_info.weight    < 0) pet_info.weight    = 0;
+  if (pet_info.happiness < 0) pet_info.happiness = 0;
+  if (pet_info.energy    < 0) pet_info.energy    = 0;
+}
+
+// Push current values into the page
+function updatePetInfoInHtml() {
+  $('.name').text(pet_info['name']);
+  $('.weight').text(pet_info['weight']);
+  $('.happiness').text(pet_info['happiness']);
+  $('.energy').text(pet_info['energy']);
+}
+
+/*
+ * jQuery method #1: .fadeIn() / .fadeOut()
+ */
+function showPetComment(message) {
+  $('.pet-comment')
+    .stop(true, true)   // cancel queued/active animations
+    .text(message)      // set the new comment text
+    .fadeIn(200)        // smoothly reveal the bubble
+    .delay(1800)        // hold visible for 1.8 seconds
+    .fadeOut(400);      // smoothly hide it
+}
+
+/*
+ * jQuery method #2: .animate()
+ */
+function bouncePet() {
+  $('.pet-image')
+    .animate({ marginTop: '-15px' }, 150)  // hop up
+    .animate({ marginTop: '0px'   }, 150); // settle back
+}
